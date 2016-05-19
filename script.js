@@ -6,16 +6,25 @@ var currentPlayer = null;
 //DOCUMENT READY FOR EVENT HANDLERS
 $(document).ready(function () {
     var settings = getSettings();
-    
-    if(settings.exists){
-        $("#setting_modal").modal('show');
+
+
+    if(settings){
+        $("#storage_modal").modal('show');
     } else {
         $('#settingsModal').modal('show');
     }
+
+
+
+    // if(settings.exists){
+    //     $("#storage_modal").modal('show');
+    // } else {
+    //     $('#settingsModal').modal('show');
+    // }
     
     
     $("#Yes").click(function () {
-        $("#setting_modal").modal("hide");
+        $("#storage_modal").modal("hide");
         var size = settings.number;
         var toWin = settings.win;
         gameBoard = new TicTacToe(size, toWin);
@@ -58,7 +67,7 @@ $(document).ready(function () {
     });
     
     $("#No").click(function () {
-        $("#setting_modal").modal("hide");
+        $("#storage_modal").modal("hide");
         $('#settingsModal').modal('show');
     });
  
@@ -340,11 +349,11 @@ function gameSettings() {
 
 function getSettings() {
     var settings = JSON.parse(window.localStorage.getItem('settings'));
-    if(settings===null){
-        settings={
-            exists: false
-        }
-    }
+    // if(settings===null){
+    //     settings={
+    //         exists: false
+    //     }
+    // }
     return settings;
 }
 
@@ -356,5 +365,5 @@ function Player(name, value) {
 
 //Function to display name
 function displayName(name) {
-    $("#current_player").html(name + "'s turn");
+    $("#current_player").html(name);
 }
