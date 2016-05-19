@@ -303,6 +303,51 @@ function TicTacToe(number, win) {
     };
 }
 
+TicTacToe.prototype.domObj = function (id) {
+    var square = $("<div>").addClass('square').css({
+        'width': (100 / this.number) + "%",
+        'height': (100 / this.number) + "%"
+    }).attr("square", id);
+    $(".game_board").append(square);
+};
+
+
+function win_modal(winner) {                //win modal function, passed one parameter
+    $('#winModal h4').html(winner);
+    $("#winModal").modal("show");
+}
+
+function choose_game_options() {
+    $('#settingsModal').modal('show');
+}
+
+function gameSettings() {
+    var settings = {
+        'player1': player1,
+        'player2': player2,
+        'currentPlayer': currentPlayer,
+        'valueArray': gameBoard.valueArray,
+        'number': gameBoard.number,
+        'win': gameBoard.win,
+        'exists': true
+    };
+    
+    // settings.exists = (confirm("Do you want to save settings"));
+    
+    var storage = JSON.stringify(settings);
+    window.localStorage.setItem('settings', storage);
+}
+
+function getSettings() {
+    var settings = JSON.parse(window.localStorage.getItem('settings'));
+    if(settings===null){
+        settings={
+            exists: false
+        }
+    }
+    return settings;
+}
+
 //CONSTRUCTOR FOR PLAYER
 function Player(name, value) {
     this.name = name;
