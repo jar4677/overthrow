@@ -3,35 +3,10 @@ body{
     margin: 0;
 
 }
-.reset{
-    position: absolute;
-    top:100%;
-    left:40%;
-    background-color: black;
-    #opacity: 0.5;
-    margin-top: 2%;
-    /*color:white;*/
-}
+
 /*Modal Styling*/
-.option{
-    #width: 33%;
-    #float: left;
-    text-align: center;
-    /*color:white;*/
-}
-.option input{
-    color: black;
-}
 #current_player{
     font-size: 2em;
-}
-.modal-header {
-    text-align: center;
-}
-
-.modal-body {
-    /*height:70vh;*/
-    /*background-color: black;*/
 }
 
 #new-game {

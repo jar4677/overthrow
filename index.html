@@ -20,8 +20,7 @@
         <h3>Choose your mark:</h3>
         <img src="images/X.png" class="choose" id="X">
         <img src="images/O.png" class="choose" id="O">
-        <button class="btn btn-default btn-lg clearfix" id='reset' >Reset Game</button>
-        <hr>
+        <button class="btn btn-default btn-lg clearfix" id='reset'>Reset Game</button>
         <h3 id="current_player"></h3>
     </div>
     <div class="col-xs-6 text-center">
@@ -34,11 +33,11 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <h4>Choose from the following options</h4>
+            <div class="modal-header text-center">
+                <h3>Choose from the following options</h3>
             </div>
             <div class="modal-body clearfix">
-                <div class="option col-xs-4">
+                <div class="text-center col-xs-4">
                     <h4>Player Names</h4>
                     <label>Player 1 Name:</label><br>
                     <input type="text" name="player1" placeholder="Player 1" id="player-1" class="player" autofocus>
@@ -46,7 +45,7 @@
                     <label>Player 2 Name:</label><br>
                     <input type="text" name="player1" placeholder="Player 2" id="player-2" class="player">
                 </div>
-                <div class="option col-xs-4">
+                <div class="text-center col-xs-4">
                     <h4>Board Size</h4>
                     <input type="radio" name="game-size" id="game-three" value="3" checked>
                     <label for="game-three">3x3</label><br>
@@ -61,7 +60,7 @@
                     <label for="game-six">6x6</label><br>
                     <br>
                 </div>
-                <div class="option col-xs-4">
+                <div class="text-center col-xs-4">
                     <h4>Matches to Win</h4>
                     <input type="radio" name="to-win" id="win-three" value="3" checked>
                     <label for="win-three">3</label><br>
@@ -90,8 +89,8 @@
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <h4></h4>
+            <div class="modal-header text-center">
+                <h3></h3>
                 <button type="button" id="play-again">Play Again</button>
             </div>
         </div>
@@ -102,10 +101,10 @@
     <div class="modal-dialog setting_dialog">
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header">
-                <h4>Would you like to continue your previous game?</h4>
-                <button type="button" id="Yes" class="btn btn-success">Yes</button>
-                <button type="button" id="No" class="btn btn-danger">No</button>
+            <div class="modal-header text-center">
+                <h3>Would you like to continue your previous game?</h3>
+                <button type="button" id="Yes" class="btn btn-success btn-lg">Yes</button>
+                <button type="button" id="No" class="btn btn-danger btn-lg">No</button>
 
             </div>
         </div>

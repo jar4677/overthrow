@@ -2,11 +2,9 @@
  * Created by jar4677 on 5/3/16.
  */
 
-var currentPlayer = null;
 //DOCUMENT READY FOR EVENT HANDLERS
 $(document).ready(function () {
     var settings = getSettings();
-
 
     if(settings){
         $("#storage_modal").modal('show');
@@ -14,15 +12,6 @@ $(document).ready(function () {
         $('#settingsModal').modal('show');
     }
 
-
-
-    // if(settings.exists){
-    //     $("#storage_modal").modal('show');
-    // } else {
-    //     $('#settingsModal').modal('show');
-    // }
-    
-    
     $("#Yes").click(function () {
         $("#storage_modal").modal("hide");
         var size = settings.number;
@@ -30,13 +19,13 @@ $(document).ready(function () {
         gameBoard = new TicTacToe(size, toWin);
         gameBoard.buildBoard();
         gameBoard.valueArray = settings.valueArray;
-        player1 = settings.player1;
-        player2 = settings.player2;
-        currentPlayer = settings.currentPlayer;
-        displayName(currentPlayer.name);
+        gameBoard.player1 = settings.player1;
+        gameBoard.player2 = settings.player2;
+        gameBoard.currentPlayer = settings.currentPlayer;
+        displayName(gameBoard.currentPlayer.name);
     
         //sets cursor type based on player value
-        if(currentPlayer.value = 'x'){
+        if(gameBoard.currentPlayer.value = 'x'){
             $("#game-area").addClass('x').removeClass('o');
         } else {
             $("#game-area").addClass('o').removeClass('x');
@@ -72,7 +61,7 @@ $(document).ready(function () {
     });
  
     //saves settings when window closes
-    $(window).unload(gameSettings);
+    $(window).unload(saveSettings);
     
     //click handler for new game
     $("#new-game").click(function () {
@@ -94,8 +83,8 @@ $(document).ready(function () {
         gameBoard.buildBoard();
         player1 = new Player(p1Name, "x");
         player2 = new Player(p2Name, "o");
-        currentPlayer = player1;
-        displayName(currentPlayer.name);
+        gameBoard.currentPlayer = player1;
+        displayName(gameBoard.currentPlayer.name);
     });
 
     $("#play-again").click(function () {
@@ -112,13 +101,13 @@ $(document).ready(function () {
     //click handlers for changing mark
     $("#X").click(function () {
        //current player value becomes 'x'
-        currentPlayer.value = 'x';
+        gameBoard.currentPlayer.value = 'x';
         $("#game-area").addClass('x').removeClass('o');
     });
 
     $("#O").click(function () {
         //current player value becomes 'o'
-        currentPlayer.value = 'o';
+        gameBoard.currentPlayer.value = 'o';
         $("#game-area").addClass('o').removeClass('x');
     });
 
@@ -147,10 +136,10 @@ $(document).ready(function () {
     //click handler for squares
     $("#game-area").on("click", "div.square", function () {
         var id = $(this).attr("square");
-        var value = currentPlayer.value;
+        var value = gameBoard.currentPlayer.value;
 
         //set value to square
-        if (currentPlayer.value == 'x'){
+        if (gameBoard.currentPlayer.value == 'x'){
             $(this).addClass('X-square').removeClass('O-square');
         } else {
             $(this).addClass('O-square').removeClass('X-square');
@@ -203,35 +192,32 @@ function TicTacToe(number, win) {
 
         //if enough squares are filled, check for win
         if (this.squaresFilled >= this.win) {
-            
-            if (
-                //calls the checkWin method for each win condition
-                this.checkWin(this.rowWin(x), value) ||
+            //calls the checkWin method for each win condition
+            if (this.checkWin(this.rowWin(x), value) ||
                 this.checkWin(this.colWin(y), value) ||
                 this.checkWin(this.leftDWin(x, y), value) ||
                 this.checkWin(this.rightDWin(x, y), value)
             ) {
                 //calls win modal if it is a win
-                win_modal(currentPlayer.name + " Wins!");
+                winModal(this.currentPlayer.name + " Wins!");
             } else if (this.valueArray.indexOf(null) == -1){
                 //calls win modal if it is a draw
-                win_modal('Draw!');
+                winModal('Draw!');
             }
-
-
         }
+
         //switch players
-        if(currentPlayer == player1){
-            currentPlayer = player2;
+        if(this.currentPlayer == player1){
+           this.currentPlayer = player2;
         } else {
-            currentPlayer = player1;
+            this.currentPlayer = player1;
         }
 
         //display current player's name
-        displayName(currentPlayer.name);
+        displayName(this.currentPlayer.name);
 
         //set cursor based on player value
-        if(currentPlayer.value == 'x'){
+        if(this.urrentPlayer.value == 'x'){
             $("#game-area").addClass('x').removeClass('o');
         } else {
             $("#game-area").addClass('o').removeClass('x');
@@ -320,41 +306,28 @@ TicTacToe.prototype.domObj = function (id) {
     $(".game_board").append(square);
 };
 
-
-function win_modal(winner) {                //win modal function, passed one parameter
+function winModal(winner) {                //win modal function, passed one parameter
     $('#winModal h4').html(winner);
     $("#winModal").modal("show");
 }
 
-function choose_game_options() {
-    $('#settingsModal').modal('show');
-}
-
-function gameSettings() {
+function saveSettings() {
     var settings = {
         'player1': player1,
         'player2': player2,
-        'currentPlayer': currentPlayer,
+        'currentPlayer': gameBoard.currentPlayer,
         'valueArray': gameBoard.valueArray,
         'number': gameBoard.number,
         'win': gameBoard.win,
         'exists': true
     };
     
-    // settings.exists = (confirm("Do you want to save settings"));
-    
     var storage = JSON.stringify(settings);
     window.localStorage.setItem('settings', storage);
 }
 
 function getSettings() {
-    var settings = JSON.parse(window.localStorage.getItem('settings'));
-    // if(settings===null){
-    //     settings={
-    //         exists: false
-    //     }
-    // }
-    return settings;
+    return JSON.parse(window.localStorage.getItem('settings'));
 }
 
 //CONSTRUCTOR FOR PLAYER
