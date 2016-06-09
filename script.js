@@ -6,14 +6,14 @@
 $(document).ready(function () {
     var settings = getSettings();
 
-    if(settings){
-        $("#storage_modal").modal('show');
-    } else {
-        $('#settingsModal').modal('show');
+    if(!settings){
+        $("#load-game").hide();
     }
+    
+    $('#settingsModal').modal('show');
 
-    $("#Yes").click(function () {
-        $("#storage_modal").modal("hide");
+    $("#load-game").click(function () {
+        $("#settingsModal").modal("hide");
         var size = settings.number;
         var toWin = settings.win;
         gameBoard = new TicTacToe(size, toWin);
@@ -26,9 +26,9 @@ $(document).ready(function () {
     
         //sets cursor type based on player value
         if(gameBoard.currentPlayer.value = 'x'){
-            $("#game-area").addClass('x').removeClass('o');
+            $("#container").addClass('x').removeClass('o');
         } else {
-            $("#game-area").addClass('o').removeClass('x');
+            $("#container").addClass('o').removeClass('x');
         }
     
         //sets image background for squares with a value
@@ -53,11 +53,6 @@ $(document).ready(function () {
                 })
             }
         }
-    });
-    
-    $("#No").click(function () {
-        $("#storage_modal").modal("hide");
-        $('#settingsModal').modal('show');
     });
  
     //saves settings when window closes
@@ -85,6 +80,9 @@ $(document).ready(function () {
         player2 = new Player(p2Name, "o");
         gameBoard.currentPlayer = player1;
         displayName(gameBoard.currentPlayer.name);
+        setTimeout( function () {
+            $("#load-game").show();
+        }, 1000);
     });
 
     $("#play-again").click(function () {
@@ -94,6 +92,7 @@ $(document).ready(function () {
     });
 
     $("#reset").click(function () {
+        $('#load-game').hide();
         $('#settingsModal').modal('show');
         $("#game-area").html('');
     });
@@ -102,13 +101,13 @@ $(document).ready(function () {
     $("#X").click(function () {
        //current player value becomes 'x'
         gameBoard.currentPlayer.value = 'x';
-        $("#game-area").addClass('x').removeClass('o');
+        $("#container").addClass('x').removeClass('o');
     });
 
     $("#O").click(function () {
         //current player value becomes 'o'
         gameBoard.currentPlayer.value = 'o';
-        $("#game-area").addClass('o').removeClass('x');
+        $("#container").addClass('o').removeClass('x');
     });
 
     //handlers for game board sizes
@@ -157,6 +156,7 @@ function TicTacToe(number, win) {
     this.sqArray = [];
     this.valueArray = [];
     this.squaresFilled = 0;
+    this.currentPlayer = null;
 
     //Method To Build Board
     this.buildBoard = function () {
@@ -218,9 +218,9 @@ function TicTacToe(number, win) {
 
         //set cursor based on player value
         if(this.urrentPlayer.value == 'x'){
-            $("#game-area").addClass('x').removeClass('o');
+            $("#container").addClass('x').removeClass('o');
         } else {
-            $("#game-area").addClass('o').removeClass('x');
+            $("#container").addClass('o').removeClass('x');
         }
     };
 
@@ -296,6 +296,10 @@ function TicTacToe(number, win) {
         //returns true if the number of continuous matches equals the total to win
         return (match == this.win);
     };
+
+    this.changeMark = function () {
+
+    }
 }
 
 TicTacToe.prototype.domObj = function (id) {

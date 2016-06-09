@@ -25,9 +25,10 @@
     </div>
     <div class="col-xs-6 text-center">
         <h1 class="title">OVERTHROW</h1>
-        <div class="game_board x" id="game-area"></div>
+        <div class="game_board" id="game-area"></div>
     </div>
 </div>
+
 <!--modal for settings-->
 <div class="modal fade" id="settingsModal" role="dialog">
     <div class="modal-dialog">
@@ -77,7 +78,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="new-game" class="btn btn-success">Start Game</button>
+                <button type="button" id="load-game" class="btn btn-success pull-left">Load Saved Game</button>
+                <button type="button" id="new-game" class="btn btn-success">Start New Game</button>
             </div>
         </div>
 
@@ -97,19 +99,6 @@
 
     </div>
 </div>
-<div class="modal fade" id="storage_modal" role="dialog">
-    <div class="modal-dialog setting_dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header text-center">
-                <h3>Would you like to continue your previous game?</h3>
-                <button type="button" id="Yes" class="btn btn-success btn-lg">Yes</button>
-                <button type="button" id="No" class="btn btn-danger btn-lg">No</button>
 
-            </div>
-        </div>
-
-    </div>
-</div>
 </body>
 </html>

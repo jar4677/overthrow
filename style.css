@@ -27,24 +27,19 @@ body{
     #margin: auto;
     text-align: center;
 }
-.center>h1{
+
+.center > h1{
     margin-right: 25%;
     margin-bottom: 1%;
 }
-/*.title{*/
-    /*!*height: 10vh;*!*/
-    /*!*margin: 0;*!*/
-    /*!*position: relative;*!*/
-    /*!*top: 5vh;*!*/
-/*}*/
 
 /*Classes to add cursor effects*/
 .x{
-    cursor: url("images/x-small.png"), auto;
+    cursor: url("images/X-sm.png"), auto;
 }
 
 .o{
-    cursor: url("images/o-small.png"), auto;
+    cursor: url("images/O-sm.png"), auto;
 }
 .square{
     box-sizing: border-box;
@@ -55,18 +50,15 @@ body{
     height: auto;
 }
 .X-square {
-    background-image: url("images/X.png");
-    background-size: contain;
+    background: transparent url("images/X.png") no-repeat center;
+    background-size: 80%;
 }
 .O-square {
-    background-image: url("images/O.png");
-    background-size: contain;
+    background: transparent url("images/O.png") no-repeat center;
+    background-size: 80%;
 }
 .square:hover {
     background-color: lightgrey;
-    /*animation: rainbow;*/
-    /*animation-duration: 3s;*/
-    /*animation-iteration-count: infinite; !*background-color: lightgray;*!*/
 }
 
 .square:active {
@@ -78,8 +70,6 @@ body{
     height: 80vh;
     border: 1vh outset grey;
     margin: auto;
-    /*margin-left: 8%;*/
-    /*background-color: black;*/
 }
 
 .statsBar {
@@ -99,26 +89,4 @@ body{
 
 .choose:hover {
     transform: scale(1.5);
-}
-
-
-@-webkit-keyframes rainbow { /*row hover have this animation effect*/
-    0% {
-        background-color: gray;
-    }
-    20% {
-        background-color: black;
-    }
-    40% {
-        background-color: white;
-    }
-    60% {
-        background-color: gray;
-    }
-    80% {
-        background-color: black;
-    }
-    100% {
-        background-color: white;
-    }
 }
