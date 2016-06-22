@@ -108,24 +108,28 @@ $(document).ready(function () {
 
     //handlers for game board sizes
     $("#game-three").change(function () {
+        console.log(this);
         $("#win-four, #win-five, #win-six").attr('disabled', true);
-        $("#win-three").attr('checked', true);
+        $("#win-three").prop('checked', true);
     });
 
     $("#game-four").change(function () {
+        console.log(this);
         $("#win-five, #win-six").attr('disabled', true);
-        $("#win-four").attr('disabled', false).attr('checked', true);
+        $("#win-four").attr('disabled', false).prop('checked', true);
     });
 
     $("#game-five").change(function () {
+        console.log(this);
         $("#win-six").attr('disabled', true);
         $("#win-four, #win-five").attr('disabled', false);
-        $("#win-five").attr("checked", true);
+        $("#win-five").prop("checked", true);
     });
 
     $("#game-six").change(function () {
+        console.log(this);
         $("#win-four, #win-five, #win-six").attr('disabled', false);
-        $("#win-six").attr("checked", true);
+        $("#win-six").prop("checked", true);
     });
 
     //click handler for squares
