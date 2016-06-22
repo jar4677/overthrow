@@ -25,30 +25,24 @@ $(document).ready(function () {
         displayName(gameBoard.currentPlayer.name);
     
         //sets cursor type based on player value
-        if(gameBoard.currentPlayer.value = 'x'){
-            $("#container").addClass('x').removeClass('o');
-        } else {
-            $("#container").addClass('o').removeClass('x');
-        }
+        gameBoard.setMark(gameBoard.currentPlayer.value);
     
         //sets image background for squares with a value
         for (var i = 0; i < gameBoard.valueArray.length; i++){
-            var yesCls = null;
-            var noCls = null;
+            var markClass = null;
             if (gameBoard.valueArray[i] != null){
                 if (gameBoard.valueArray[i] == 'x'){
-                    yesCls = 'X-square';
-                    noCls = 'O-square';
+                    markClass = 'X-square';
                 } else {
-                    yesCls = 'O-square';
-                    noCls = 'X-square';
+                    markClass = 'O-square';
                 }
             
                 var id = gameBoard.sqArray[i];
             
+                //TODO this is really clunky not sure why I did it this way. Find a better way
                 $(".square").each(function () {
                     if ($(this).attr("square") == id){
-                        $(this).addClass(yesCls);
+                        $(this).addClass(markClass);
                     }
                 })
             }
@@ -76,9 +70,10 @@ $(document).ready(function () {
     
         gameBoard = new TicTacToe(size, toWin);
         gameBoard.buildBoard();
-        player1 = new Player(p1Name, "x");
-        player2 = new Player(p2Name, "o");
-        gameBoard.currentPlayer = player1;
+        gameBoard.player1 = new Player(p1Name, "x");
+        gameBoard.player2 = new Player(p2Name, "o");
+        gameBoard.currentPlayer = gameBoard.player1;
+        gameBoard.setMark(gameBoard.currentPlayer.value);
         displayName(gameBoard.currentPlayer.name);
         setTimeout( function () {
             $("#load-game").show();
@@ -87,6 +82,7 @@ $(document).ready(function () {
 
     $("#play-again").click(function () {
         $("#winModal").modal("hide");
+        $('#load-game').hide();
         $("#game-area").html('');
         $('#settingsModal').modal('show');
     });
@@ -101,13 +97,13 @@ $(document).ready(function () {
     $("#X").click(function () {
        //current player value becomes 'x'
         gameBoard.currentPlayer.value = 'x';
-        $("#container").addClass('x').removeClass('o');
+        gameBoard.setMark(gameBoard.currentPlayer.value);
     });
 
     $("#O").click(function () {
         //current player value becomes 'o'
         gameBoard.currentPlayer.value = 'o';
-        $("#container").addClass('o').removeClass('x');
+        gameBoard.setMark(gameBoard.currentPlayer.value);
     });
 
     //handlers for game board sizes
@@ -156,6 +152,8 @@ function TicTacToe(number, win) {
     this.sqArray = [];
     this.valueArray = [];
     this.squaresFilled = 0;
+    this.player1 = null;
+    this.player2 = null;
     this.currentPlayer = null;
 
     //Method To Build Board
@@ -207,21 +205,17 @@ function TicTacToe(number, win) {
         }
 
         //switch players
-        if(this.currentPlayer == player1){
-           this.currentPlayer = player2;
+        if(this.currentPlayer == this.player1){
+           this.currentPlayer = this.player2;
         } else {
-            this.currentPlayer = player1;
+            this.currentPlayer = this.player1;
         }
 
         //display current player's name
         displayName(this.currentPlayer.name);
 
         //set cursor based on player value
-        if(this.urrentPlayer.value == 'x'){
-            $("#container").addClass('x').removeClass('o');
-        } else {
-            $("#container").addClass('o').removeClass('x');
-        }
+        this.setMark(this.currentPlayer.value);
     };
 
     //Method To Generate Row Win Condition
@@ -297,8 +291,12 @@ function TicTacToe(number, win) {
         return (match == this.win);
     };
 
-    this.changeMark = function () {
-
+    this.setMark = function (mark) {
+        if(mark == 'x'){
+            $("#container").addClass('x').removeClass('o');
+        } else {
+            $("#container").addClass('o').removeClass('x');
+        }
     }
 }
 
@@ -311,7 +309,7 @@ TicTacToe.prototype.domObj = function (id) {
 };
 
 function winModal(winner) {                //win modal function, passed one parameter
-    $('#winModal h4').html(winner);
+    $('#winModal h3').html(winner);
     $("#winModal").modal("show");
 }
 
